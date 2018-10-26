@@ -25,37 +25,37 @@ Run the Mattermost docker You should configure it with following environment var
 - MM_SQLSETTINGS_DATASOURCE:datasource(ect mattermost:mattermost@tcp(db:3306)/mattermost?charset=utf8mb4,utf8)
 
 # docker-compose file sample
- services:
- 	app:
- 		build:
- 		context: app
- 		args:
- 			- edition=tame
- 			- MATTERMOST_VERSION=5.4.0
- 		restart: unless-stopped
- 		networks:
- 		mattermost:
- 		volumes:
- 		- mattermost-config:/mattermost/config:rw
- 		- mattermost-data:/mattermost/data:rw
- 		- mattermost-logs:/mattermost/logs:rw
- 		- mattermost-plugins:/mattermost/plugins:rw
- 		- /etc/localtime:/etc/localtime:ro
- 		environment:
- 		# set config
- 		- MATTERMOST_SITEURL=http://example.com/mattermost
- 		- MATTERMOST_EMAIL_FEEDBACKEMAIL=mattermost@example.com
- 		- MATTERMOST_EMAIL_FEEDBACKORGANIZATION=example
- 		- MATTERMOST_EMAIL_SMTPSERVER=mattermost.example.com
- 		- MATTERMOST_EMAIL_SMTPPORT=25
- 		- MATTERMOST_EMAIL_SMTPUSERNAME=mattermost
- 		- MATTERMOST_EMAIL_SMTPPASSWORD=mattermost
- 		- MATTERMOST_EMAIL_ENABLESMTPAUTH=true
- 		- MATTERMOST_EMAIL_CONNECTIONSECURITY=TLS
- 		- MATTERMOST_EMAIL_PUSHNOTIFICATIONSERVER=mattermost.example.com
- 		- MATTERMOST_SQL_MAXOPENCONNS=300
- 		- MATTERMOST_SQL_DRIVERNAME=mysql
- 		- MM_SQLSETTINGS_DATASOURCE=mattermost:mattermost@tcp(db:3306)/mattermost?charset=utf8mb4,utf8
+	services:
+		app:
+			build:
+			context: app
+			args:
+				- edition=tame
+				- MATTERMOST_VERSION=5.4.0
+			restart: unless-stopped
+			networks:
+			mattermost:
+			volumes:
+			- mattermost-config:/mattermost/config:rw
+			- mattermost-data:/mattermost/data:rw
+			- mattermost-logs:/mattermost/logs:rw
+			- mattermost-plugins:/mattermost/plugins:rw
+			- /etc/localtime:/etc/localtime:ro
+			environment:
+			# set config
+			- MATTERMOST_SITEURL=http://example.com/mattermost
+			- MATTERMOST_EMAIL_FEEDBACKEMAIL=mattermost@example.com
+			- MATTERMOST_EMAIL_FEEDBACKORGANIZATION=example
+			- MATTERMOST_EMAIL_SMTPSERVER=mattermost.example.com
+			- MATTERMOST_EMAIL_SMTPPORT=25
+			- MATTERMOST_EMAIL_SMTPUSERNAME=mattermost
+			- MATTERMOST_EMAIL_SMTPPASSWORD=mattermost
+			- MATTERMOST_EMAIL_ENABLESMTPAUTH=true
+			- MATTERMOST_EMAIL_CONNECTIONSECURITY=TLS
+			- MATTERMOST_EMAIL_PUSHNOTIFICATIONSERVER=mattermost.example.com
+			- MATTERMOST_SQL_MAXOPENCONNS=300
+			- MATTERMOST_SQL_DRIVERNAME=mysql
+			- MM_SQLSETTINGS_DATASOURCE=mattermost:mattermost@tcp(db:3306)/mattermost?charset=utf8mb4,utf8
 
 
 # Start Container user docker-compose
