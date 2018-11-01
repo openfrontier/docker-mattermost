@@ -33,8 +33,6 @@ if [ "$1" = 'mattermost' ]; then
     #GENERAL
     jq '.ServiceSettings.SiteURL = "'${MATTERMOST_SITEURL}'"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.ServiceSettings.ListenAddress = ":8000"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
-    jq '.TeamSettings.EnableUserCreation = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
-    jq '.TeamSettings.EnableTeamCreation = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.TeamSettings.MaxUsersPerTeam = 20000' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.TeamSettings.RestrictDirectMessage = "team"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.TeamSettings.TeammateNameDisplay = "full_name"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
@@ -42,7 +40,7 @@ if [ "$1" = 'mattermost' ]; then
     jq '.LogSettings.EnableDiagnostics = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.LogSettings.ConsoleJson = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     #SECURITY
-    jq '.EmailSettings.RequireEmailVerification = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
+    jq '.EmailSettings.RequireEmailVerification = '${MATTERMOST_EMAIL_REQUIREEMAILVERIFICATION}'' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.FileSettings.EnablePublicLink = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     #NOTIFICATIONS
     jq '.EmailSettings.SendEmailNotifications = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
