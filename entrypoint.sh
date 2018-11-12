@@ -33,12 +33,14 @@ if [ "$1" = 'mattermost' ]; then
     #GENERAL
     jq '.ServiceSettings.SiteURL = "'${MATTERMOST_SITEURL}'"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.ServiceSettings.ListenAddress = ":8000"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
+    jq '.TeamSettings.EnableUserCreation = '${MATTERMOST_ENABLEUSERCREATION}'' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.TeamSettings.MaxUsersPerTeam = 20000' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.TeamSettings.RestrictDirectMessage = "team"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.TeamSettings.TeammateNameDisplay = "full_name"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.LogSettings.EnableConsole = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
-    jq '.LogSettings.EnableDiagnostics = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.LogSettings.ConsoleJson = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
+    jq '.LogSettings.FileLocation = "'${MATTERMOST_LOG_FILELOCATION}'"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
+    jq '.LogSettings.EnableDiagnostics = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     #SECURITY
     jq '.EmailSettings.RequireEmailVerification = '${MATTERMOST_EMAIL_REQUIREEMAILVERIFICATION}'' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.FileSettings.EnablePublicLink = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
@@ -64,6 +66,7 @@ if [ "$1" = 'mattermost' ]; then
     jq '.ServiceSettings.EnablePostIconOverride = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.ServiceSettings.EnableUserAccessTokens = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     #FILES
+    jq '.FileSettings.Directory = "'${MATTERMOST_FILE_DIRECTORY}'"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.FileSettings.AmazonS3SSL = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     #CUSTOMIZATION
     jq '.ServiceSettings.EnableCustomEmoji = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
@@ -71,7 +74,6 @@ if [ "$1" = 'mattermost' ]; then
     #ADVANCED
     jq '.RateLimitSettings.VaryByUser = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.RateLimitSettings.Enable = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
-    jq '.SqlSettings.DriverName = "'${MATTERMOST_SQL_DRIVERNAME}'"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.SqlSettings.MaxOpenConns = '${MATTERMOST_SQL_MAXOPENCONNS}'' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     # Configure database access
     if [[ -z "$MM_SQLSETTINGS_DATASOURCE" ]]
