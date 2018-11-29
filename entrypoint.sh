@@ -41,6 +41,8 @@ if [ "$1" = "/mattermost.sh" ]; then
     jq '.LogSettings.ConsoleJson = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.LogSettings.FileLocation = "'${MATTERMOST_LOG_FILELOCATION}'"' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.LogSettings.EnableDiagnostics = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
+    #AUTHENTICATION
+    jq '.EmailSettings.EnableSignUpWithEmail = false' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     #SECURITY
     jq '.EmailSettings.RequireEmailVerification = '${MATTERMOST_EMAIL_REQUIREEMAILVERIFICATION}'' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
     jq '.FileSettings.EnablePublicLink = true' $MM_CONFIG > $MM_CONFIG.tmp && mv $MM_CONFIG.tmp $MM_CONFIG
