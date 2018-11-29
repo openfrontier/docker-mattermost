@@ -10,6 +10,7 @@ email=$MATTERMOST_SYSTEM_USER_EMAIL
 baseApiUrl=http://localhost:8000/mattermost/api/v4
 if [[ "$userName" = "" || "$passWord" = "" || "$email" = "" ]];then
     echo "システムユーザ名、パスワード、メールを入力してください。"
+    tail -f /dev/null
     exit 1
 fi
 
@@ -20,8 +21,7 @@ if [ "$userNameSearchFlg" = "1" ] ; then
         mattermost user create --system_admin --email $email --username $userName --password $passWord
         if [ $? != 0 ];then
             echo "システムユーザを作成することが失敗しました！"
-            tail -f /dev/null
-       	    exit 1
+            exit 1
         fi
     else
         echo "重複メールのユーザが存在しました！"
