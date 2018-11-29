@@ -43,7 +43,13 @@ updateRoleInfo=${systemUserInfo/\,\"create_team\"/}
 
 curl -X PUT -H 'Authorization: Bearer '$token -d $updateRoleInfo $baseApiUrl/roles/$userId/patch
 
-config=`curl -H 'Authorization: Bearer '$token $baseApiUrl/config | sed 's/"RequireEmailVerification":false/"RequireEmailVerification":true/g' | sed 's/"EnableUserCreation":true/"EnableUserCreation":false/g'`
+systemAdminInfo=`curl -H 'Authorization: Bearer '$token $baseApiUrl/roles/name/system_admin`
+systemAdminId=`echo $systemAdminInfo | jq .id | awk -F  '"' '{print $2}'`
+updateSystemAdminInfo=${systemAdminInfo/\]/\,\"edit_others_posts\"\]}
+curl -X PUT -H 'Authorization: Bearer '$token -d $updateSystemAdminInfo $baseApiUrl/roles/$systemAdminId/patch
 
-curl -X PUT -H 'Authorization: Bearer '$token -d "$config" $baseApiUrl/config 
+teamAdminInfo=`curl -H 'Authorization: Bearer '$token $baseApiUrl/roles/name/team_admin`
+teamAdminId=`echo $teamAdminInfo | jq .id | awk -F  '"' '{print $2}'`
+updateTeamAdminInfo=${teamAdminInfo/\]/\,\"edit_others_posts\"\]}
+curl -X PUT -H 'Authorization: Bearer '$token -d $updateTeamAdminInfo $baseApiUrl/roles/$teamAdminId/patch
 tail -f /dev/null
