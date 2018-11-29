@@ -20,19 +20,24 @@ if [ "$userNameSearchFlg" = "1" ] ; then
         mattermost user create --system_admin --email $email --username $userName --password $passWord
         if [ $? != 0 ];then
             echo "システムユーザを作成することが失敗しました！"
-        	exit 1
+            tail -f /dev/null
+       	    exit 1
         fi
-	else
+    else
         echo "重複メールのユーザが存在しました！"
+        tail -f /dev/null
         exit 1
-	fi
+    fi
 else
     if [ "$emailSearchFlg" = "1"  ] ; then
         echo "重複ユーザ名のユーザが存在しました！"
+        tail -f /dev/null
         exit 1
-	else
+    else
         echo "重複ユーザ名、メールのユーザが存在しました！"
-	fi
+        tail -f /dev/null
+        exit 1 
+    fi
 fi
 
 token=`curl -i -d '{"login_id":"'$userName'","password":"'$passWord'"}' $baseApiUrl/users/login | awk -F "[ \r\n]" '/Token/{print $2}'`
