@@ -19,6 +19,7 @@ emailSearchFlg=`mattermost user search $email 2>&1 | wc -l`
 if [ "$userNameSearchFlg" = "1" ] ; then
     if [ "$emailSearchFlg" = "1" ] ; then
         mattermost user create --system_admin --email $email --username $userName --password $passWord
+        mattermost user verify $userName
         if [ $? != 0 ];then
             echo "システムユーザを作成することが失敗しました！"
             exit 1
