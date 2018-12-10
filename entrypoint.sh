@@ -12,7 +12,7 @@ if [ "${1:0:1}" = '-' ]; then
     set -- mattermost "$@"
 fi
 
-if [ "$1" = "/mattermost.sh" ]; then
+if [ "$1" = 'mattermost' ]; then
   # Check CLI args for a -config option
   for ARG in $@;
   do
