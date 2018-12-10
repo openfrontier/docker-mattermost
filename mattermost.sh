@@ -5,7 +5,6 @@ email=$MATTERMOST_SYSTEM_USER_EMAIL
 baseApiUrl=http://localhost:8000/mattermost/api/v4
 if [[ "$userName" = "" || "$passWord" = "" || "$email" = "" ]];then
     echo "システムユーザ名、パスワード、メールを入力してください。"
-    tail -f /dev/null
     exit 1
 fi
 
@@ -21,17 +20,14 @@ if [ "$userNameSearchFlg" = "1" ] ; then
         fi
     else
         echo "重複メールのユーザが存在しました！"
-        tail -f /dev/null
         exit 1
     fi
 else
     if [ "$emailSearchFlg" = "1"  ] ; then
         echo "重複ユーザ名のユーザが存在しました！"
-        tail -f /dev/null
         exit 1
     else
         echo "重複ユーザ名、メールのユーザが存在しました！"
-        tail -f /dev/null
         exit 1 
     fi
 fi
@@ -53,4 +49,3 @@ teamAdminInfo=`curl -H 'Authorization: Bearer '$token $baseApiUrl/roles/name/tea
 teamAdminId=`echo $teamAdminInfo | jq .id | awk -F  '"' '{print $2}'`
 updateTeamAdminInfo=${teamAdminInfo/\]/\,\"edit_others_posts\"\]}
 curl -X PUT -H 'Authorization: Bearer '$token -d $updateTeamAdminInfo $baseApiUrl/roles/$teamAdminId/patch
-tail -f /dev/null
