@@ -1,9 +1,4 @@
 #!/bin/sh
-nohup mattermost >/dev/null 2>&1 & 
-sleep 30
-until nc -z localhost 8000; do
-    sleep 5
-done
 userName=$MATTERMOST_SYSTEM_USER_NAME
 passWord=$MATTERMOST_SYSTEM_USER_PASSWD
 email=$MATTERMOST_SYSTEM_USER_EMAIL
